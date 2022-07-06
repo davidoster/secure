@@ -23,6 +23,7 @@ public class LoginController {
     
     @PostMapping("/login")
     String login(@RequestParam String username, @RequestParam String password) {
+        System.out.println("Did I come here????????????");
         if(username.equals("admin") && password.equals("admin")) {
             return("authenticated");
         }

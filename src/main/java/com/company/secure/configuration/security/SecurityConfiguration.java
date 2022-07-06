@@ -28,7 +28,7 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        http.formLogin().loginPage("/login").permitAll();
+        http.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/public");
 //                http.formLogin(form -> form
 //			.loginPage("/login")
 //			.permitAll());
