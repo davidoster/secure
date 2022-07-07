@@ -4,6 +4,7 @@
  */
 package com.company.secure.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,16 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author George.Pasparakis
  */
 @Controller
-public class HomeController {
+public class UserRolesController {
     
-    @GetMapping({"/", "/home"})
-    public String index() {
-        return("index");
+    @GetMapping("/admin")
+    public String adminPanel() {
+        return("adminpanel");
     }
     
-    @GetMapping("/public")
-    public String allowAll() {
-        return("all");
+    @GetMapping("/profile")
+    public String userDetailsPage() {
+        return("userdetails");
     }
-    
 }

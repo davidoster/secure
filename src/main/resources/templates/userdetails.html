@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>User's Details</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+        <div>Display details of the logged in user!</div>
+        <div>
+            <!--Only for USER role-->
+            <p sec:authorize="hasRole('ROLE_USER')">
+                This is a text that show only for the USER role
+            </p>
+            
+            <!--Only for ADMIN role-->
+            <p sec:authorize="hasRole('ROLE_ADMIN')">
+                This is a text that show only for the ADMIN role
+            </p>
+            
+            <p>
+                <span>Username:</span>
+                <span sec:authentication="principal.username"></span>
+                <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+            </p>
+            <p>
+                <span>Password:</span>
+                <span th:text="${#authentication.getPrincipal().getPassword()}"></span>
+            </p>
+            <p>
+                <span>Roles:</span>
+                <span th:text="${#authentication.getPrincipal().authorities}"></span>
+            </p>
+        </div>
+    </body>
+</html>
