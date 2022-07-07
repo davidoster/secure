@@ -37,8 +37,8 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeHttpRequests((authz) -> authz
-                .antMatchers("/userdetails").hasRole("USER")
-                .antMatchers("/admin").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/userdetails").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/public*").permitAll()
                 .antMatchers("/login*").permitAll()
                 .anyRequest().authenticated())
