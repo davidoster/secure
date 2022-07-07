@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,7 +37,7 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
 //			.permitAll());
 
 //        http.logout().logoutUrl("/logout"); // default
-        http.rememberMe();
+//        http.rememberMe();
         http.sessionManagement().maximumSessions(1);
         http
                 .authorizeHttpRequests((authz) -> authz
@@ -50,38 +51,44 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
         return http.build();
     }
 
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User //.withDefaultPasswordEncoder()
-                .withUsername("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-        UserDetails user1 = User //.withDefaultPasswordEncoder()
-                .withUsername("user")
-                .password(passwordEncoder().encode("user"))
-                .roles("USER")
-                .build();
-        UserDetails user2 = User //.withDefaultPasswordEncoder()
-                .withUsername("root")
-                .password(passwordEncoder().encode("root"))
-                .roles("USER", "ADMIN")
-                .build();
-//        List<UserDetails> users = new ArrayList<>();
-//        users.add(user);
-//        users.add(user1);
-        return new InMemoryUserDetailsManager(user, user1, user2);
-    }
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsService() {
+//        UserDetails user = User //.withDefaultPasswordEncoder()
+//                .withUsername("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//        UserDetails user1 = User //.withDefaultPasswordEncoder()
+//                .withUsername("user")
+//                .password(passwordEncoder().encode("user"))
+//                .roles("USER")
+//                .build();
+//        UserDetails user2 = User //.withDefaultPasswordEncoder()
+//                .withUsername("root")
+//                .password(passwordEncoder().encode("root"))
+//                .roles("USER", "ADMIN")
+//                .build();
+////        List<UserDetails> users = new ArrayList<>();
+////        users.add(user);
+////        users.add(user1);
+//        InMemoryUserDetailsManager userService = new InMemoryUserDetailsManager(user, user1, user2);
+//        return userService;
+//    }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) 
+            throws Exception {
+        AuthenticationManager authManager = authenticationConfiguration.getAuthenticationManager();
+        
+        return(authManager);
+//        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
 
 // creates users in memory - AUTHENTICATION
 //    @Override
