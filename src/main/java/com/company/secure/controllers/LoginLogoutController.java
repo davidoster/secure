@@ -23,12 +23,12 @@ public class LoginLogoutController {
     
     @GetMapping("/authenticated")
     String authenticated() {
-        return("/authenticated");
+        return("authenticated");
     }
     
     @GetMapping("/logout")
     String logout() {
-        return("/logout");
+        return("logout");
     }
     
     // it doesn't work anymore!!! Why?????

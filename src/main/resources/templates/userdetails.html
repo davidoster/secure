@@ -31,6 +31,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <span th:text="${#authentication.getPrincipal().getPassword()}"></span>
             </p>
             <p>
+                <span>Enabled:</span>
+                <span sec:authentication="principal.enabled"></span>
+            </p>
+            <p>
                 <span>Roles:</span>
                 <span th:text="${#authentication.getPrincipal().authorities}"></span>
             </p>

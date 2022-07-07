@@ -35,10 +35,14 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
 //			.loginPage("/login")
 //			.permitAll());
 
+//        http.logout().logoutUrl("/logout"); // default
+        http.rememberMe();
+        http.sessionManagement().maximumSessions(1);
         http
                 .authorizeHttpRequests((authz) -> authz
-                .antMatchers("/userdetails").hasRole("USER")
-                .antMatchers("/admin").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/profile").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin").hasAnyRole("ADMIN")
+                .antMatchers("/customer").hasAnyRole("USER")
                 .antMatchers("/public*").permitAll()
                 .antMatchers("/login*").permitAll()
                 .anyRequest().authenticated())
@@ -58,10 +62,15 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder().encode("user"))
                 .roles("USER")
                 .build();
+        UserDetails user2 = User //.withDefaultPasswordEncoder()
+                .withUsername("root")
+                .password(passwordEncoder().encode("root"))
+                .roles("USER", "ADMIN")
+                .build();
 //        List<UserDetails> users = new ArrayList<>();
 //        users.add(user);
 //        users.add(user1);
-        return new InMemoryUserDetailsManager(user, user1);
+        return new InMemoryUserDetailsManager(user, user1, user2);
     }
 
     @Bean
@@ -73,7 +82,7 @@ public class SecurityConfiguration { //extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
 // creates users in memory - AUTHENTICATION
 //    @Override
 //    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
